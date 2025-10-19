@@ -16,7 +16,7 @@ const LoginForm = () => {
   e.preventDefault();
   setMessage('');
   try {
-    const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData);
+    const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData,{ headers: { "Content-Type": "application/json" } });
     localStorage.setItem('token', res.data.token);
     setMessage('✅ Login successful! Welcome back, ' + res.data.user.name);
     navigate('/dashboard');
