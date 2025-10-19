@@ -68,7 +68,7 @@ const OurMenu = () => {
         {paginatedItems.map(item => (
           <div key={item._id} className="col-md-4">
             <a
-              href={`${process.env.REACT_APP_API_URL}${item.image}`}
+              href={`${item.image}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-decoration-none text-dark"
