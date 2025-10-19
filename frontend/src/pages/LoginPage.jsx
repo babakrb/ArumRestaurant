@@ -19,8 +19,18 @@ const LoginForm = () => {
     const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/login`, formData,{ headers: { "Content-Type": "application/json" } });
     localStorage.setItem('token', res.data.token);
     setMessage('✅ Login successful! Welcome back, ' + res.data.user.name);
-    navigate('/dashboard');
-    window.location.reload();
+
+    
+    //navigate('/dashboard');
+    //window.location.reload();
+
+localStorage.setItem('token', res.data.token);
+setTimeout(() => {
+  navigate('/dashboard');
+}, 200); // 200ms تأخیر کوچک برای اطمینان از ذخیره
+
+
+    
   } catch (err) {
     setMessage('❌ ' + (err.response?.data?.message || 'Login failed'));
   }
