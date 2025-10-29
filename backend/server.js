@@ -163,7 +163,9 @@ app.get('/api/gallery', async (req, res) => {
   }
 });
 
-
+app.get('/api/test', (req, res) => {
+  res.send('hello');
+});
 
 // ✅ Auth routes
 app.use('/api/auth', authRoutes);
