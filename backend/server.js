@@ -10,12 +10,27 @@ const authRoutes = require('./routes/auth');
 dotenv.config();
 const app = express();
 
-// Middleware
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true
-}));
+// Prepare allowed origins list
+const allowedOrigins = process.env.CORS_ORIGIN.split(",").map(o => o.trim());
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS: " + origin));
+      }
+    },
+    credentials: true
+  })
+);
+
 app.use(express.json());
+
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, {
